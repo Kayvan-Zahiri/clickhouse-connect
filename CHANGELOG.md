@@ -20,6 +20,7 @@
 - `Time64` negative timedelta inserts previously stored incorrect values. `Time64` NumPy timedelta inserts previously stored wrong magnitudes. Both now store correct tick values, and out-of-range NumPy values are rejected instead of incorrectly wrapping.
 - Pandas `Timedelta` values in `Time` and `Time64` row inserts now convert like `timedelta`. Nullable timedelta DataFrame columns now insert missing values as `NULL` on Pandas 3 instead of raising `TypeError`.
 - SQLAlchemy column DDL now compiles `TypeDecorator` and `with_variant()` types through the active ClickHouse dialect. Dialect-aware types such as a decorator that selects `DateTime64(6, 'UTC')` no longer fall back to generic `DATETIME` in `CREATE TABLE` and related column DDL. Closes [#984](https://github.com/ClickHouse/clickhouse-connect/issues/984).
+- `parse_columns` no longer returns a phantom column with an empty type name for an empty argument list. `Variant()` previously raised `InternalError: Unrecognized ClickHouse type`, and `Nested()`, `Dynamic()` and `JSON()` carried the empty element through. Closes [#971](https://github.com/ClickHouse/clickhouse-connect/issues/971).
 
 ### Compatibility
 
